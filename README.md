@@ -2,9 +2,36 @@
 
 This is my learning memo of the configurations and building process of Typescript with Babel and Webpack (forked from https://github.com/microsoft/TypeScript-Babel-Starter).
 
-## TS-Babel Only
+## TS-Babel Only Configurations
 
-Use Babel to transpile TS to JS, use `tsc` for type checking and generating type declaration files.
+### TS + Babel basic setups
+
+> Overview: Use Babel to transpile TS to JS, use `tsc` for type checking and generating type declaration files.
+
+1. Install dependencies
+   ```bash
+   npm install --save-dev typescript @babel/core @babel/cli @babel/plugin-proposal-class-properties @babel/preset-env @babel/preset-typescript
+   ```
+2. Create `tsconfig.json` using `tsc --init`
+3. Create `.babelrc` file
+   ```json
+   {
+     "presets": ["@babel/preset-env", "@babel/preset-typescript"],
+     "plugins": ["@babel/plugin-proposal-class-properties"]
+   }
+   ```
+4. Setup build tasks in `package.json`
+   ```json
+   {
+     "scripts": {
+       "type-check": "tsc --noEmit",
+       "type-check:watch": "npm run type-check -- --watch",
+       "build": "npm run build:types && npm run build:js",
+       "build:types": "tsc --emitDeclarationOnly",
+       "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
+     }
+   }
+   ```
 
 ### Build destinations
 
