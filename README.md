@@ -40,7 +40,11 @@ This is my learning memo of the configurations and building process of Typescrip
 - declaration files
   - defined by `compilerOptions.outDir` property in `tsconfig.json`
 
-### Resolving modules (path alias)
+### Resolving modules
+
+**Resolving relative paths**: no need for extra configurations
+
+**Resolving path alias**:
 
 - JS compilation
   - install `babel-plugin-module-resolver`
@@ -74,4 +78,67 @@ This is my learning memo of the configurations and building process of Typescrip
     }
     ```
 
-NOTE: relative modules importing just works without any configuration.
+## TS-Babel-Webpack
+
+### Add Webpack
+
+1. Install Webpack and `babel-loader`
+   ```bash
+   npm install --save-dev webpack webpack-cli babel-loader
+   ```
+2. Create `webpack.config.js`
+
+   ```js
+   var path = require('path');
+
+   module.exports = {
+     entry: './src/index',
+     output: {
+       path: path.resolve(__dirname, 'dist'),
+       filename: 'app.bundle.js',
+     },
+     resolve: {
+       extensions: ['.ts', '.tsx', '.js', '.json'],
+     },
+     module: {
+       rules: [
+         {
+           test: /\.(ts|js)x?$/,
+           exclude: /node_modules/,
+           loader: 'babel-loader',
+         },
+       ],
+     },
+   };
+   ```
+
+3. Add bundle task in `package.json`
+   ```json
+   {
+     "scripts": {
+       "bundle": "webpack"
+     }
+   }
+   ```
+
+### Entry point
+
+defined by the `entry` field in `webpack.config.js` exported module
+
+### Build destinations
+
+- compiled JS
+  - defined by the `output` field in `webpack.config.js` exported module
+- declaration files
+  - defined by `compilerOptions.outDir` property in `tsconfig.json`
+
+### Resolving modules
+
+**Resolving relative paths**: no need for extra configurations
+
+**Resolving path alias**: The same as TS-Babel only configurations
+
+- JS compilation
+  - defined by `root` and `alias` in `module-resolver` options in `.babelrc`
+- Type check
+  - defined by `compilerOptions.baseUrl` and `compilerOptions.paths` in `tsconfig.json`
