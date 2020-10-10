@@ -1,7 +1,6 @@
 {
   "name": "babel-typescript-sample",
-  "version": "0.7.2",
-  "license": "MIT",
+  "version": "1.0.0",
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
