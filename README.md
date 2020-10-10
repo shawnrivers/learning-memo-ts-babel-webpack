@@ -1,6 +1,6 @@
 # TS-Babel-Webpack
 
-This is a project to help me learn the configurations and building process of Typescript with Babel and Webpack
+This is my learning memo of the configurations and building process of Typescript with Babel and Webpack (forked from https://github.com/microsoft/TypeScript-Babel-Starter).
 
 ## TS-Babel Only
 
