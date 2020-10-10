@@ -9,18 +9,23 @@ This is my learning memo of the configurations and building process of Typescrip
 > Overview: Use Babel to transpile TS to JS, use `tsc` for type checking and generating type declaration files.
 
 1. Install dependencies
+
    ```bash
    npm install --save-dev typescript @babel/core @babel/cli @babel/plugin-proposal-class-properties @babel/preset-env @babel/preset-typescript
    ```
+
 2. Create `tsconfig.json` using `tsc --init`
 3. Create `.babelrc` file
+
    ```json
    {
      "presets": ["@babel/preset-env", "@babel/preset-typescript"],
      "plugins": ["@babel/plugin-proposal-class-properties"]
    }
    ```
+
 4. Setup build tasks in `package.json`
+
    ```json
    {
      "scripts": {
@@ -47,8 +52,10 @@ This is my learning memo of the configurations and building process of Typescrip
 **Resolving path alias**:
 
 - JS compilation
+
   - install `babel-plugin-module-resolver`
   - set up `root` and `alias` in `module-resolver` options in `.babelrc`
+
     ```json
     {
       "compilerOptions": {
@@ -60,8 +67,11 @@ This is my learning memo of the configurations and building process of Typescrip
       }
     }
     ```
+
 - Type check:
+
   - set up `compilerOptions.baseUrl` and `compilerOptions.paths` in `tsconfig.json`
+
     ```json
     {
       "plugins": [
@@ -83,9 +93,11 @@ This is my learning memo of the configurations and building process of Typescrip
 ### Add Webpack
 
 1. Install Webpack and `babel-loader`
+
    ```bash
    npm install --save-dev webpack webpack-cli babel-loader
    ```
+
 2. Create `webpack.config.js`
 
    ```js
@@ -113,6 +125,7 @@ This is my learning memo of the configurations and building process of Typescrip
    ```
 
 3. Add bundle task in `package.json`
+
    ```json
    {
      "scripts": {
