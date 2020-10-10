@@ -124,6 +124,54 @@ This is my learning memo of the configurations and building process of Typescrip
    };
    ```
 
+   NOTE:
+
+   If you only use webpack for build and don't use babel CLI, then you can move the content inside `.babelrc` under `module.rules` > `use.options` in `webpack.config.js`.
+
+   In this project, the `webpack.config.js` will be:
+
+   ```js
+   var path = require('path');
+
+   module.exports = {
+     entry: './src/index',
+     output: {
+       path: path.resolve(__dirname, 'dist'),
+       filename: 'app.bundle.js',
+     },
+     resolve: {
+       extensions: ['.ts', '.tsx', '.js', '.json'],
+     },
+     module: {
+       rules: [
+         {
+           test: /\.(ts|js)x?$/,
+           exclude: /node_modules/,
+           use: {
+             loader: 'babel-loader',
+             options: {
+               presets: ['@babel/env', '@babel/typescript'],
+               plugins: [
+                 '@babel/proposal-class-properties',
+                 '@babel/proposal-object-rest-spread',
+                 [
+                   'module-resolver',
+                   {
+                     alias: {
+                       utils: './src/utils',
+                       '@components': './src/components',
+                     },
+                   },
+                 ],
+               ],
+             },
+           },
+         },
+       ],
+     },
+   };
+   ```
+
 3. Add bundle task in `package.json`
 
    ```json
@@ -153,5 +201,6 @@ defined by the `entry` field in `webpack.config.js` exported module
 
 - JS compilation
   - defined by `root` and `alias` in `module-resolver` options in `.babelrc`
+  - or defined by the same options under `babel-loader` `options` in `webpack.config.js`
 - Type check
   - defined by `compilerOptions.baseUrl` and `compilerOptions.paths` in `tsconfig.json`
