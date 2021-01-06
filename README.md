@@ -126,7 +126,7 @@ This is my learning memo of the configurations and building process of Typescrip
 
    NOTE:
 
-   If you only use webpack for build and don't use babel CLI, then you can move the content inside `.babelrc` under `module.rules` > `use.options` in `webpack.config.js`.
+   Instead of using `.babelrc`, you can also move the content inside `.babelrc` to `module.rules` > `use.options` in `webpack.config.js`.
 
    In this project, the `webpack.config.js` will be:
 
